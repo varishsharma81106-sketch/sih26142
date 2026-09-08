@@ -1,0 +1,17 @@
+# Weights and data — too large for git, share via team drive instead
+checkpoints/*.pth
+experiments/pretrained_models/*.pth
+data/raw/*
+data/processed/**/*.npy
+!data/raw/.gitkeep
+!data/processed/**/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# OS/editor
+.DS_Store
+.vscode/
