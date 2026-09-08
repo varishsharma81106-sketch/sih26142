@@ -1,0 +1,44 @@
+# Core
+torch>=2.1.0
+torchvision>=0.16.0
+numpy
+scipy
+scikit-image
+opencv-python
+pillow
+streamlit
+matplotlib
+
+# Real, pre-aligned Sentinel-2 <-> SPOT/NAIP/Venus pairs, zero GeoTIFF/CRS
+# wrangling required (ESA-funded, IEEE GRSL 2024) — RECOMMENDED primary data
+# source, see data_pipeline.load_opensr_test_dataset() / README "Data"
+opensr-test
+
+# Geospatial — OPTIONAL, ADVANCED PATH ONLY. Only needed for the secondary
+# raw-WorldStrat-GeoTIFF path (data_pipeline.load_geotiff_pair /
+# discover_aoi_pairs — see Finetune_On_Colab.ipynb's "Optional/Advanced"
+# section) and for real Copernicus/Sentinel-2 pulls. NOT needed for the
+# default fast path (opensr-test), the demo, or validate_pipeline.py.
+#
+# Do not `pip install -r requirements.txt` with these three still uncommented
+# unless you actually need the advanced path — GDAL in particular has no
+# universal prebuilt wheel and can take a very long time (or fail outright)
+# to build from source if your system's libgdal doesn't match. Uncomment
+# only when you're intentionally going down that path:
+# rasterio
+# GDAL
+# sentinelhub
+
+# Real-ESRGAN architecture — install this SEPARATELY, not via this file:
+#   pip install basicsr --no-deps
+#   pip install addict future yapf tqdm
+# basicsr's normal install pulls a heavy face-restoration dependency chain
+# (facexlib, gfpgan, dlib-adjacent packages) you don't need just to load
+# RRDBNet and fine-tune it. --no-deps + these 4 small packages is the
+# complete, correct dependency set for this project's usage.
+#
+# Also: basicsr 1.4.2 imports `torchvision.transforms.functional_tensor`,
+# which current torchvision removed. src/model.py patches this
+# automatically at import time — you don't need to do anything extra,
+# but if you ever import basicsr directly elsewhere, apply the same shim
+# (see _patch_basicsr_torchvision_compat() in src/model.py).
